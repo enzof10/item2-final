@@ -2,6 +2,8 @@ import { router } from "../router/index.routes.js";
 import { fetchMovies } from "../utils/functions.js";
 
 function addPagination(quantity, paginationSize = 5) {
+    const url = new URLSearchParams(window.location.search)
+    const page = url.get('page') ? Number(url.get('page')) : 1
     function renderPaginationItems() {
         while (navigation.firstChild) {
             navigation.removeChild(navigation.firstChild);
@@ -27,43 +29,40 @@ function addPagination(quantity, paginationSize = 5) {
     for (let index = 1; index < Array(quantity).length + 1; index++) {
         navItems.push(index)
     }
-    let navItemsToShown = navItems.slice(0, paginationSize);
-    let fistIndex = 1;
-    let lastIndex = paginationSize;
-    const minFirst = navItems.length - paginationSize;
-    const minLast = navItems.length - 1;
+
+    let pages = []
+    let pagePagination = 0
+    for (let index = 0; index < navItems.length + 1; index += paginationSize ) {
+        pages.push(navItems.slice(index, index + paginationSize ))
+        if(navItems.slice(index, index + paginationSize ).includes(page)){
+            pagePagination  = pages.length -1
+        }
+    }
+
+
+    let navItemsToShown = pages[pagePagination];
     let selected;
     const prev = document.querySelector(".previous_link");
     const next = document.querySelector(".next_link");
     const navigation = document.querySelector(".nvaigation_items");
     if (prev) {
+        prev.removeEventListener("click", previousClick);
         prev.addEventListener("click", previousClick);
     }
     if (next) {
+        next.removeEventListener("click", nextClick);
         next.addEventListener("click", nextClick);
     }
 
     function previousClick() {
-        if (fistIndex - 1 >= 0) {
-            fistIndex -= 1;
-        }
-
-        lastIndex = fistIndex + paginationSize;
-
-        navItemsToShown = navItems.slice(fistIndex, lastIndex);
+        pagePagination = Math.max(0, pagePagination -1)
+        navItemsToShown = pages[pagePagination]
         renderPaginationItems();
     }
 
     function nextClick() {
-        if (lastIndex <= minLast) {
-            lastIndex += 1;
-        }
-
-        if (lastIndex - paginationSize <= minFirst) {
-            fistIndex = lastIndex - paginationSize;
-        }
-
-        navItemsToShown = navItems.slice(fistIndex, lastIndex);
+        navItemsToShown = pages[pagePagination +1]
+        pagePagination++
         renderPaginationItems();
     }
 
