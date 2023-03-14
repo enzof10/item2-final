@@ -13,13 +13,5 @@ export function Main() {
         </section>
     `
     element.innerHTML = html
-
-    const movies = element.querySelector('.movies')
-    
-    movies.onclick = function () {
-        window.location.href = "http://127.0.0.1:5500/index.html#/peliculas?page=1"
-    }
-
-
     return element
 }
