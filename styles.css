@@ -124,17 +124,16 @@ a {
     margin: auto;
     margin-top: 7%;
     padding: 20px;
-    border: 5px solid #706767;
     width: 90%;
     /* Could be more or less, depending on screen size */
     display: flex;
     color: black;
     background-color: white;
-    gap: 10px;
 }
 
 .modal-content img {
     height: 450px;
+    border-radius: 2px;
 }
 
 /* The Close Button */
@@ -261,5 +260,11 @@ a {
 }
 
 .description-div-modal{
-    color: wheat;
+    padding-left: 20px;
+    background: rgba(233, 244, 233, 0.6);
+    border-radius: 2px;
+}
+
+.valoracion{
+    color: black;
 }
