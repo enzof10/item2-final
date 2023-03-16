@@ -74,6 +74,7 @@ function addPagination(quantity, paginationSize = 5) {
     }
 
     renderPaginationItems();
+    return navItemsToShown
 }
 
 /**
@@ -92,8 +93,8 @@ export function Movies(page) {
             actualPage = page
             let data = await fetchMovies(actualPage)
             const totalPages = data.total_pages
-            addPagination(totalPages)
-
+            const navItemsToShown = addPagination(totalPages)
+            const realPage = navItemsToShown.findIndex(item=>item == page)
             let subPages = []
             let subPagePagination = 0
             const subPagePaginationSize = 4
@@ -106,7 +107,7 @@ export function Movies(page) {
             }
 
             let html = ""
-            for (let i = 0; i < subPages[actualPage].length ; i++) {
+            for (let i = 0; i < subPages[realPage].length ; i++) {
                 const movie = data.results[i]
                 const date = movie.release_date.split('-')[0]
                 html += `
@@ -122,6 +123,7 @@ export function Movies(page) {
                         <div id="m${movie.id}" class="modal" >
     
                             <div class="modal-content" style="background-image:url(https://image.tmdb.org/t/p/w500/${movie.backdrop_path});background-size:     cover;background-repeat:   no-repeat;background-position: center center;" >
+                            <div class="bg-transparent">
                                 <span id="close${movie.id}" class="close">&times;</span>
                                 <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
                                 <div class="description-div-modal">
@@ -133,6 +135,7 @@ export function Movies(page) {
                                     </div>
                                 </div>
                                 </div>
+                                </div>
                             </div>
     
                         </div>
@@ -141,11 +144,10 @@ export function Movies(page) {
             }
             element.innerHTML = html
 
-            for (let i = 0; i < data.results.length; i++) {
+            for (let i = 0; i < subPages[realPage].length ; i++) {
                 const movie = data.results[i]
 
                 let btn = element.querySelector(`#b${i}`)
-
                 let modal = element.querySelector(`#m${movie.id}`);
 
                 let span = element.querySelector(`#close${movie.id}`);

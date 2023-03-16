@@ -123,7 +123,6 @@ a {
 .modal-content {
     margin: auto;
     margin-top: 7%;
-    padding: 20px;
     width: 90%;
     /* Could be more or less, depending on screen size */
     display: flex;
@@ -261,10 +260,16 @@ a {
 
 .description-div-modal{
     padding-left: 20px;
-    background: rgba(233, 244, 233, 0.6);
     border-radius: 2px;
 }
 
 .valoracion{
     color: black;
+}
+
+.bg-transparent{
+    display: flex;
+    /* color: black; */
+    background: rgba(233, 244, 233, 0.6);
+    padding: 20px;
 }
