@@ -32,10 +32,10 @@ function addPagination(quantity, paginationSize = 5) {
 
     let pages = []
     let pagePagination = 0
-    for (let index = 0; index < navItems.length + 1; index += paginationSize ) {
-        pages.push(navItems.slice(index, index + paginationSize ))
-        if(navItems.slice(index, index + paginationSize ).includes(page)){
-            pagePagination  = pages.length -1
+    for (let index = 0; index < navItems.length + 1; index += paginationSize) {
+        pages.push(navItems.slice(index, index + paginationSize))
+        if (navItems.slice(index, index + paginationSize).includes(page)) {
+            pagePagination = pages.length - 1
         }
     }
 
@@ -55,13 +55,13 @@ function addPagination(quantity, paginationSize = 5) {
     }
 
     function previousClick() {
-        pagePagination = Math.max(0, pagePagination -1)
+        pagePagination = Math.max(0, pagePagination - 1)
         navItemsToShown = pages[pagePagination]
         renderPaginationItems();
     }
 
     function nextClick() {
-        navItemsToShown = pages[pagePagination +1]
+        navItemsToShown = pages[pagePagination + 1]
         pagePagination++
         renderPaginationItems();
     }
@@ -109,9 +109,9 @@ export function Movies(page) {
                             <h3>Valoración: ${movie.vote_average}</h3>
                         </div>
     
-                        <div id="m${movie.id}" class="modal">
+                        <div id="m${movie.id}" class="modal" >
     
-                            <div class="modal-content">
+                            <div class="modal-content" style="background-image:url(https://image.tmdb.org/t/p/w500/${movie.backdrop_path});background-size:     cover;background-repeat:   no-repeat;background-position: center center;" >
                                 <span id="close${movie.id}" class="close">&times;</span>
                                 <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
                                 <div class="description-div">
@@ -121,6 +121,7 @@ export function Movies(page) {
                                         <p>${movie.overview}</p>
                                     </div>
                                     <h3>Valoración${movie.vote_average}</h3>
+                                </div>
                                 </div>
                             </div>
     
